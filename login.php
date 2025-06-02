@@ -68,5 +68,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p style="text-align:center;">¿No tienes cuenta? <a href="register.php">Regístrate</a></p>
         </form>
     </div>
+    <!-- Librerías (CDN) -->
+    <!-- GSAP y ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Lenis Scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <!-- Tu script personalizado de animaciones -->
+    <script src="./animation.js"></script> <!-- Cambia esto a la ruta correcta -->
 </body>
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-05-2025 a las 13:05:03
+-- Tiempo de generación: 02-06-2025 a las 17:24:55
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,6 +24,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `compras`
+--
+
+CREATE TABLE `compras` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `modelo_id` int(11) NOT NULL,
+  `precio_compra` float NOT NULL,
+  `fecha_compra` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `metodo_pago` varchar(50) NOT NULL,
+  `transaccion_id_gateway` varchar(100) NOT NULL,
+  `estado_pago` varchar(20) NOT NULL DEFAULT 'completado'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `favoritos`
 --
 
@@ -37,7 +54,10 @@ CREATE TABLE `favoritos` (
 --
 
 INSERT INTO `favoritos` (`usuario_id`, `modelo_id`) VALUES
-(3, 9);
+(2, 2),
+(2, 3),
+(2, 10),
+(2, 11);
 
 -- --------------------------------------------------------
 
@@ -50,6 +70,7 @@ CREATE TABLE `modelos` (
   `nombre_modelo` varchar(255) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `precio` float DEFAULT NULL,
+  `url_compra_externa` varchar(2083) DEFAULT NULL COMMENT 'URL para comprar el modelo en un sitio externo',
   `imagen_url` varchar(255) DEFAULT NULL,
   `archivo_stl` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -58,16 +79,17 @@ CREATE TABLE `modelos` (
 -- Volcado de datos para la tabla `modelos`
 --
 
-INSERT INTO `modelos` (`id`, `nombre_modelo`, `descripcion`, `precio`, `imagen_url`, `archivo_stl`) VALUES
-(1, 'Robot Articulado X-01', 'Un robot genial y articulado, listo para imprimir.', 13, 'img/modelo1_placeholder.jpg', NULL),
-(2, 'Jarrón Geométrico', 'Elegante jarrón con diseño geométrico moderno.', 8, 'img/modelo2_placeholder.jpg', NULL),
-(3, 'Miniatura Fantasía Épica', 'Detallada miniatura para tus juegos de rol.', 9, 'img/modelo3_placeholder.jpg', NULL),
-(4, 'Soporte para Auriculares', 'Práctico soporte para tus auriculares gamer.', 6, 'img/modelo4_placeholder.jpg', NULL),
-(5, 'Robot Articulado X-01', 'Un robot genial y articulado, listo para imprimir.', 13, 'img/modelo1_placeholder.jpg', NULL),
-(6, 'Jarrón Geométrico', 'Elegante jarrón con diseño geométrico moderno.', 8, 'img/modelo2_placeholder.jpg', NULL),
-(7, 'Miniatura Fantasía Épica', 'Detallada miniatura para tus juegos de rol.', 9, 'img/modelo3_placeholder.jpg', NULL),
-(8, 'Soporte para Auriculares', 'Práctico soporte para tus auriculares gamer.', 6, 'img/modelo4_placeholder.jpg', NULL),
-(9, 'test01', 'test012', 12, NULL, 'models_files/model_68398e63eae3c1.19788283.3mf');
+INSERT INTO `modelos` (`id`, `nombre_modelo`, `descripcion`, `precio`, `url_compra_externa`, `imagen_url`, `archivo_stl`) VALUES
+(1, 'Robot Articulado X-01', 'Un robot genial y articulado, listo para imprimir.', 13, NULL, 'img/modelo1_placeholder.jpg', NULL),
+(2, 'Jarrón Geométrico', 'Elegante jarrón con diseño geométrico moderno.', 8, NULL, 'img/modelo2_placeholder.jpg', NULL),
+(3, 'Miniatura Fantasía Épica', 'Detallada miniatura para tus juegos de rol.', 9, NULL, 'img/modelo3_placeholder.jpg', NULL),
+(4, 'Soporte para Auriculares', 'Práctico soporte para tus auriculares gamer.', 6, NULL, 'img/modelo4_placeholder.jpg', NULL),
+(5, 'Robot Articulado X-01', 'Un robot genial y articulado, listo para imprimir.', 13, NULL, 'img/modelo1_placeholder.jpg', NULL),
+(6, 'Jarrón Geométrico', 'Elegante jarrón con diseño geométrico moderno.', 8, NULL, 'img/modelo2_placeholder.jpg', NULL),
+(7, 'Miniatura Fantasía Épica', 'Detallada miniatura para tus juegos de rol.', 9, NULL, 'img/modelo3_placeholder.jpg', NULL),
+(8, 'Soporte para Auriculares', 'Práctico soporte para tus auriculares gamer.', 6, NULL, 'img/modelo4_placeholder.jpg', NULL),
+(10, 'test02', 'test02', 12.99, 'https://www.google.com/?zx=1748871149011&no_sw_cr=1', NULL, 'models_files/model_6839921b8d6a56.63255684.3mf'),
+(11, 'test01', 'Test de que funciona poner modelo con imagen', 99.99, 'https://www.google.com/?zx=1748871149011&no_sw_cr=1', 'img/model_images/img_683dbefc9ddbf5.11286333.jpg', 'models_files/model_683dbeb5a07f41.22300213.3mf');
 
 -- --------------------------------------------------------
 
@@ -97,6 +119,14 @@ INSERT INTO `usuarios` (`id`, `nombre`, `alias`, `correo`, `contraseña`, `es_ad
 --
 
 --
+-- Indices de la tabla `compras`
+--
+ALTER TABLE `compras`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `modelo_id` (`modelo_id`);
+
+--
 -- Indices de la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
@@ -120,10 +150,16 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `compras`
+--
+ALTER TABLE `compras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `modelos`
 --
 ALTER TABLE `modelos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -134,6 +170,13 @@ ALTER TABLE `usuarios`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `compras`
+--
+ALTER TABLE `compras`
+  ADD CONSTRAINT `modelo_id` FOREIGN KEY (`modelo_id`) REFERENCES `modelos` (`id`),
+  ADD CONSTRAINT `usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `favoritos`

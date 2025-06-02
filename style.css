@@ -47,10 +47,10 @@ img {
 }
 
 .highlight {
-    color: var(--primary-color);
+    color: var(--accent-color); /* Cambio: El highlight del logo debe ser el amarillo */
 }
 
-/* Header */
+/* Header Principal */
 header {
     background-color: var(--header-bg);
     color: var(--header-text);
@@ -70,57 +70,79 @@ header .container {
 header .logo h1 {
     margin: 0;
     font-size: 1.8em;
+    color: var(--header-text); /* Asegurar que 'Print' también tome el color del header */
 }
+/* header .logo .highlight { color: var(--accent-color); }  YA ESTÁ ARRIBA EN .highlight global */
 
-header .logo .highlight {
-    color: var(--accent-color); /* Un acento diferente en el logo */
-}
 
 header nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
+    align-items: center; /* Alinea verticalmente los items */
 }
 
 header nav ul li {
-    margin-left: 20px;
+    margin-left: 15px;
+}
+header nav ul li:first-child {
+    margin-left: 0; 
 }
 
-header nav ul li a {
+header nav ul li a { /* Estilo para los links normales del nav */
     color: var(--header-text);
     font-weight: bold;
     transition: color 0.3s ease;
+    padding: 6px 0; /* Para igualar un poco la altura si no son botones */
+    display: inline-block;
 }
 
 header nav ul li a:hover {
     color: var(--accent-color);
 }
 
-.header-icons {
-    display: flex;
-    align-items: center;
+/* Botones en el Nav */
+.header-nav-btn {
+    padding: 6px 10px; 
+    font-size: 0.85em;
+    text-transform: none; 
+    letter-spacing: normal; 
+    font-weight: normal; /* O 'bold' si prefieres */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
 }
 
-.header-icons .icon {
-    width: 24px;
-    height: 24px;
-    margin-left: 15px;
-    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%); /* Para iconos SVG blancos */
-}
-.header-icons a {
-    position: relative;
-}
-.header-icons a span { /* Contador del carrito */
-    position: absolute;
-    top: -5px;
-    right: -10px;
+.header-nav-btn.btn-primary, /* Para los que usan color primario (accent en este caso) */
+.header-nav-btn.header-nav-btn-accent {
     background-color: var(--accent-color);
     color: var(--header-bg);
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 0.7em;
-    font-weight: bold;
+}
+.header-nav-btn.btn-primary:hover,
+.header-nav-btn.header-nav-btn-accent:hover {
+    background-color: darken(var(--accent-color), 10%);
+    color: var(--header-bg); /* Mantener color de texto al hacer hover */
+}
+
+
+.header-nav-btn.btn { /* Botones normales (azules por defecto en tu .btn general) */
+    background-color: var(--primary-color);
+    color: white;
+}
+.header-nav-btn.btn:hover {
+    background-color: darken(var(--primary-color), 10%);
+    color: white;
+}
+
+/* Saludo del usuario en el nav */
+header nav ul li.nav-user-greeting span {
+    color: var(--header-text);
+    font-size: 0.9em;
+    margin-right: 5px; 
 }
 
 
@@ -136,8 +158,8 @@ header nav ul li a:hover {
     justify-content: center;
 }
 .hero .container {
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para legibilidad */
-    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente para legibilidad */
+    padding: 40px;
     border-radius: 10px;
 }
 
@@ -151,46 +173,57 @@ header nav ul li a:hover {
     margin-bottom: 1.5em;
 }
 
-/* Buttons */
+/* Buttons (Generales) */
 .btn {
     display: inline-block;
-    padding: 12px 25px;
+    padding: 12px 0px;
     background-color: var(--primary-color);
     color: white;
     border-radius: 5px;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
     border: none;
     cursor: pointer;
+    text-decoration: none; /* Para <a class="btn"> */
 }
 
 .btn:hover {
-    background-color: darken(var(--primary-color), 10%);
+    background-color: #212529;
+    /* background-color: darken(var(--primary-color), 10%); */
     transform: translateY(-2px);
-    color: white;
+    color: white; /* Asegurarse que el color del texto no cambie en hover, a menos que se quiera */
 }
 
-.btn-primary {
+.btn-primary { /* Usado para botones de acción más destacados, amarillo en este caso */
     background-color: var(--accent-color);
-    color: var(--header-bg);
+    color: var(--header-bg); /* Texto oscuro para contraste */
 }
 .btn-primary:hover {
     background-color: darken(var(--accent-color), 10%);
+    color: var(--header-bg); /* Mantener color de texto en hover */
 }
 
-/* Product Grid */
+/* Product Grid & Otras Secciones */
 .product-grid, .categories-section, .about-us {
     padding: 60px 0;
 }
 
-.product-grid h2, .categories-section h2, .about-us h2 {
+.product-grid h2, .categories-section h2, .about-us h2,
+.model-detail-container .model-header h1, /* Título en detalle de modelo */
+.auth-form h2, .admin-form h2 /* Títulos de formularios de admin y auth */
+{
     text-align: center;
     margin-bottom: 40px;
     font-size: 2.2em;
     color: var(--text-color);
 }
+/* Ajuste para h1 en detalle de modelo para que no sea tan grande como hero h2 */
+.model-detail-container .model-header h1 {
+    font-size: 2.5em; 
+}
+
 
 .grid-container {
     display: grid;
@@ -202,26 +235,28 @@ header nav ul li a:hover {
     background-color: var(--card-bg-color);
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    overflow: hidden; /* Para que la imagen no se salga del borde redondeado */
+    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    will-change: transform; /* Para GSAP hover */
 }
 
-.product-card:hover {
+/* No es necesario :hover si GSAP lo maneja */
+/* .product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
+} */
 
 .product-card img {
     width: 100%;
-    height: 220px; /* Altura fija para las imágenes */
-    object-fit: cover; /* Escala la imagen manteniendo la relación de aspecto, recortando si es necesario */
+    height: 220px; 
+    object-fit: cover; 
 }
 
 .product-card .product-info {
     padding: 20px;
-    flex-grow: 1; /* Asegura que el contenido ocupe el espacio */
+    flex-grow: 1; 
     display: flex;
     flex-direction: column;
 }
@@ -232,8 +267,11 @@ header nav ul li a:hover {
     font-size: 1.4em;
     color: var(--text-color);
 }
+.product-card h3 a { color: var(--text-color); } /* Heredar color para el link del título */
+.product-card h3 a:hover { color: var(--primary-color); }
 
-.product-card .category {
+
+.product-card .category { /* Si lo usas, da estilo */
     font-size: 0.9em;
     color: var(--secondary-color);
     margin-bottom: 10px;
@@ -244,14 +282,33 @@ header nav ul li a:hover {
     font-weight: bold;
     color: var(--primary-color);
     margin-bottom: 15px;
-    margin-top: auto; /* Empuja el precio y el botón hacia abajo si hay espacio */
+    margin-top: auto; 
 }
 
-.product-card .btn {
-    width: 100%;
+.product-card .btn { /* Botón "Ver detalles" en tarjeta */
+    width: auto; /* No 100% para que se alinee con el fav button si es necesario */
+    /* width: 100%; si va solo */
     text-align: center;
-    margin-top: 10px;
+    /* margin-top: 10px; gestionado por .card-actions */
 }
+.product-card .card-actions {
+    display: flex;
+    justify-content: space-between; /* Alinea fav y ver detalles */
+    align-items: center;
+    margin-top: auto; /* Empuja esto al fondo */
+    padding-top: 10px; /* Espacio sobre los botones */
+}
+.product-card .card-actions > * { /* Para el form y el link del botón detalles */
+    flex-basis: 48%; /* Reparte el espacio si ambos están presentes */
+}
+.product-card .card-actions form button,
+.product-card .card-actions a.btn {
+    width: 100%; /* Hacer que los botones internos ocupen todo su contenedor flex */
+    margin: 0; /* Resetear márgenes */
+    font-size: 0.9em; /* Un poco más pequeños */
+    padding: 8px 10px;
+}
+
 
 /* Categories Section */
 .category-list {
@@ -264,16 +321,19 @@ header nav ul li a:hover {
 .category-item {
     background-color: var(--card-bg-color);
     padding: 15px 25px;
-    border-radius: 25px; /* Píldoras */
+    border-radius: 25px; 
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
     font-weight: 500;
+    color: var(--text-color);
+    will-change: transform; /* Para GSAP hover */
 }
-
-.category-item:hover {
+/* :hover no necesario si GSAP lo maneja */
+/* .category-item:hover {
     background-color: var(--primary-color);
     color: white;
-}
+    transform: translateY(-3px);
+} */
 
 /* About Us */
 .about-us {
@@ -305,7 +365,23 @@ footer .social-links a:hover {
 }
 
 
-/* Media Queries for Responsiveness */
+/* Lenis / Scroll Suave - CSS relacionado */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+
+/* Responsive */
+@media (max-width: 992px) { 
+    header nav ul li {
+        margin-left: 10px; 
+    }
+    .header-nav-btn {
+        padding: 5px 8px;
+        font-size: 0.8em;
+    }
+}
+
 @media (max-width: 768px) {
     header .container {
         flex-direction: column;
@@ -314,49 +390,58 @@ footer .social-links a:hover {
 
     header nav {
         margin-top: 15px;
+        width: 100%; 
     }
     header nav ul {
         flex-direction: column;
-        align-items: center;
+        align-items: center; 
+        width: 100%;
     }
     header nav ul li {
-        margin: 8px 0;
+        margin: 8px 0; 
+        margin-left: 0;
+        width: 80%; 
+        text-align: center; 
     }
-    .header-icons {
-        margin-top: 15px;
+    header nav ul li a,
+    header nav ul li span { 
+        display: block; 
+        width: 100%;
+    }
+    
+    .header-nav-btn { 
+        display: block;
+        width: 100%; 
+        margin-bottom: 5px;
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+     header nav ul li.nav-user-greeting span {
+        padding: 8px 0; 
+        margin-right: 0;
     }
 
-    .hero h2 {
-        font-size: 2em;
-    }
-    .hero p {
-        font-size: 1em;
+    .hero h2 { font-size: 2em; }
+    .hero p { font-size: 1em; }
+
+    .grid-container { grid-template-columns: 1fr; }
+    .product-card img { height: 250px; }
+
+    .model-actions .btn-download, .model-actions .btn-buy, .model-actions .favorite-btn-detail,
+    .model-actions form {
+        max-width: 100%; /* Ocupar todo el ancho en móvil, apilados */
+        flex-basis: 100%;
     }
 
-    .grid-container {
-        grid-template-columns: 1fr; /* Una columna en móviles */
-    }
-    .product-card img {
-        height: 250px; /* Puede ser un poco más alto en móvil si hay una sola columna */
-    }
 }
 
 @media (max-width: 480px) {
-    .hero h2 {
-        font-size: 1.8em;
-    }
-    .logo h1 {
-        font-size: 1.5em;
-    }
-    .product-card h3 {
-        font-size: 1.2em;
-    }
-    .product-card .price {
-        font-size: 1.1em;
-    }
-    .btn {
-        padding: 10px 20px;
+    .hero h2 { font-size: 1.8em; }
+    .logo h1 { font-size: 1.5em; }
+    .product-card h3 { font-size: 1.2em; }
+    .product-card .price { font-size: 1.1em; }
+    .btn, .header-nav-btn { /* Simplificar selector para botones generales en móvil */
+        padding: 10px 15px; /* Hacer botones un poco más fáciles de tocar */
         font-size: 0.9em;
     }
 }
-
