@@ -1,0 +1,114 @@
+/* manage_models.css */
+
+/* .admin-header, .admin-footer, .admin-panel-container, .message ya están en style.css */
+.manage-models-container { /* Para dar más ancho solo a esta página de admin */
+    max-width: 1100px;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px; /* Más espacio */
+    font-size: 0.95em;
+    background-color: var(--card-bg-color);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.07); /* Sombra más sutil */
+    border-radius: 8px; 
+    overflow: hidden; 
+}
+.admin-table th, .admin-table td {
+    border: 1px solid #e0e0e0; /* Borde más claro */
+    padding: 12px 15px; /* Más padding */
+    text-align: left;
+    vertical-align: middle;
+}
+.admin-table th {
+    background-color: #f7f7f7; /* Gris aún más claro para headers */
+    color: var(--text-color);
+    font-weight: 600; /* Un poco más bold */
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 0.5px;
+}
+.admin-table tr:nth-child(even) td { 
+    background-color: #fdfdfd; /* Fondo muy sutil para filas pares */
+}
+.admin-table tr:hover td {
+    background-color: #f0f5fa; /* Azul muy claro al hacer hover */
+}
+.admin-table img.thumbnail {
+    max-width: 70px;
+    max-height: 50px;
+    border-radius: 4px;
+    object-fit: cover;
+    border: 1px solid #ddd; 
+}
+.admin-table .no-image-placeholder { 
+    font-size:0.8em;
+    color:#999; /* Más oscuro */
+    display: flex; /* Centrar verticalmente */
+    align-items: center;
+    justify-content: center;
+    width: 70px; 
+    height: 50px; /* Mismo alto que thumbnail */
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+
+.admin-table .actions a {
+    margin-right: 6px; /* Reducido */
+    margin-bottom: 6px; /* Para cuando se apilan */
+    padding: 7px 12px; /* Ajuste */
+    text-decoration: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 0.8em; /* Ligeramente más pequeño */
+    display: inline-block;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    text-align: center;
+    min-width: 70px; /* Para que "Eliminar" no sea muy chico */
+}
+.admin-table .actions a:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+.admin-table .actions .edit-btn {
+    background-color: var(--primary-color);
+}
+.admin-table .actions .delete-btn {
+    background-color: #e74c3c; /* Rojo más vibrante */
+}
+.admin-table .actions .delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.destacado-badge {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--header-bg); 
+    padding: 4px 8px; /* Un poco más de padding */
+    border-radius: 12px; /* Más redondeado */
+    font-size: 0.7em; /* Más pequeño */
+    font-weight: bold;
+    /* margin-left: 5px; Eliminado, ya que puede ser el único contenido */
+    line-height: 1; /* Para que no afecte mucho la altura de la celda */
+}
+.no-category-info, .not-featured-info { 
+    font-style: italic;
+    color: #888; /* Un poco más oscuro */
+    font-size: 0.9em;
+}
+
+.no-models-message-admin { 
+    padding: 30px 15px; /* Más padding */
+    text-align: center;
+    color: var(--secondary-color);
+    font-size: 1.1em;
+}
+.no-models-message-admin a {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Responsive para tabla en manage_models.css ya está en style.css global */

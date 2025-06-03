@@ -1,0 +1,146 @@
+/* modelo_detalle.css */
+/* Header y Footer ya están en style.css */
+/* .message (error/success) ya está en style.css */
+
+.model-detail-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 35px; /* Un poco más de padding */
+    background-color: var(--card-bg-color, #fff);
+    border-radius: 10px; /* Más redondeado */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08); /* Sombra más difusa */
+}
+
+.model-header {
+    text-align: center;
+    margin-bottom: 35px; /* Más espacio */
+}
+.model-header h1 {
+    color: var(--text-color);
+    font-size: 2.8em; /* Más grande */
+    margin-bottom: 15px; /* Más espacio */
+    line-height: 1.2;
+}
+
+.model-image-container {
+    text-align: center;
+    margin-bottom: 35px; /* Más espacio */
+}
+.model-image-container img {
+    max-width: 100%;
+    max-height: 550px; /* Limitar altura máxima */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12); /* Sombra más pronunciada */
+}
+
+.model-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* Más espacio entre elementos de info */
+}
+.model-info .price {
+    font-size: 2.2em; /* Un poco más grande */
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: right; 
+    margin-bottom: 10px; /* Espacio antes de la descripción */
+}
+.model-info .price .external-sale-notice { 
+    font-size:0.5em; /* Más pequeño y sutil */
+    color:var(--secondary-color);
+    font-weight: normal; 
+    vertical-align: middle; /* Alinear mejor con el precio */
+    margin-left: 5px;
+}
+
+.model-info .description h3 { 
+    margin-bottom: 12px; /* Más espacio */
+    font-size: 1.5em; /* Más grande */
+    color: var(--text-color);
+    border-bottom: 2px solid var(--primary-color); /* Línea bajo el título de descripción */
+    padding-bottom: 8px;
+    display: inline-block; /* Para que el borde no ocupe todo el ancho */
+}
+.model-info .description p {
+    font-size: 1.15em; /* Un poco más grande */
+    line-height: 1.75; /* Más interlineado */
+    color: #444; /* Un gris un poco más oscuro */
+    white-space: pre-wrap; 
+}
+
+.model-actions {
+    margin-top: 35px; /* Más espacio */
+    display: flex;
+    /* justify-content: space-around; No, que crezcan si es necesario */
+    justify-content: center; /* Centrar los botones si no ocupan todo */
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 20px; /* Más espacio entre botones */
+}
+/* .favorite-btn-detail y su .is-favorite ya están en style.css */
+.model-actions .btn-download,
+.model-actions .btn-buy,
+.model-actions form button, /* Cubre el botón de favorito si está en un form */
+.model-actions a.btn { /* Cubre el enlace "Inicia sesión para Favorito" */
+    padding: 14px 25px; /* Más padding */
+    font-size: 1em; /* Tamaño estándar */
+    /* text-transform: uppercase; Ya en .btn general */
+    /* letter-spacing: 1px; Ya en .btn general */
+    /* Otros estilos ya vienen de .btn o .favorite-btn-detail */
+    flex-grow: 0; /* No crecer por defecto, para que se vean bien si son pocos */
+    min-width: 200px; /* Ancho mínimo para que se vean bien */
+    /* max-width: 320px; Limitar si crecen mucho */
+}
+
+
+.model-actions .btn-download {
+    background-color: var(--accent-color);
+    color: var(--header-bg); 
+}
+.model-actions .btn-download:hover {
+    background-color: darken(var(--accent-color), 10%);
+    transform: translateY(-2px); /* Añadir efecto hover consistente */
+}
+
+.model-actions .btn-buy {
+    background-color: var(--primary-color);
+}
+.model-actions .btn-buy:hover {
+    background-color: darken(var(--primary-color), 10%);
+    transform: translateY(-2px);
+}
+
+.model-actions form { 
+    display: flex; 
+    /* flex-grow: 1; No, dejar que el botón interno decida */
+    min-width: 200px;
+    /* max-width: 320px; */
+}
+
+/* Mensajes de contacto o no disponibilidad */
+.model-actions .contact-message,
+.model-actions .not-available-message {
+    text-align:center;
+    width:100%; 
+    color: var(--secondary-color);
+    flex-basis:100%; 
+    padding: 15px 0; /* Más padding */
+    font-size: 1.05em; /* Un poco más grande */
+    border-top: 1px dashed #ddd; /* Separador */
+    margin-top: 15px; /* Espacio antes del separador */
+}
+
+/* Para el mensaje de error global en esta página si el modelo no se encuentra */
+.model-detail-container .message.error { /* Este es para el error de "modelo no encontrado" */
+    font-size:1.2em;
+    padding: 15px;
+}
+.model-detail-container .back-to-home-link { 
+    text-align:center;
+    display: block; 
+    margin-top: 25px; /* Más espacio */
+}
+.model-detail-container .back-to-home-link .btn {
+    padding: 12px 30px; /* Botón más grande */
+}

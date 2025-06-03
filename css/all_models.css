@@ -1,0 +1,70 @@
+/* all_models.css */
+
+/* .favorite-btn y .user-greeting ya están en style.css */
+/* El header principal ya está en style.css */
+/* El .product-grid y .product-card ya están en style.css */
+
+.page-header-bar {
+    margin-bottom: 30px;
+    margin-top: 20px; /* Espacio desde el header */
+    display: flex;
+    flex-direction: column; 
+    gap: 20px;
+    align-items: flex-start; 
+}
+.page-header-bar h2 {
+    margin-bottom: 0; 
+    text-align: left; 
+    font-size: 2em; 
+}
+.filter-controls {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    gap: 15px;
+    width: 100%; 
+}
+.filter-controls form { 
+    display: inline-block; 
+}
+
+.filter-dropdown {
+    padding: 10px 35px 10px 15px; /* Ajuste de padding */
+    border: 1.5px solid var(--text-color); /* Usar variable */
+    border-radius: 20px;
+    background-color: var(--card-bg-color, #fff);
+    color: var(--text-color, #333);
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.95em; /* Un poco más grande */
+    min-width: 200px; /* Ancho mínimo */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333' width='18px' height='18px'%3e%3cpath d='M7 10l5 5 5-5H7z'/%3e%3c/svg%3e"); /* Color de flecha con variable */
+    background-repeat: no-repeat;
+    background-position: right 12px center; /* Ajuste posición */
+    background-size: 14px; /* Ajuste tamaño */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.filter-dropdown:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0,123,255,.25);
+}
+.filter-dropdown:hover {
+    border-color: var(--primary-color);
+}
+
+/* Mensaje de "no hay modelos" */
+.no-models-message {
+    text-align:center;
+    grid-column: 1 / -1; 
+    padding: 30px 15px; /* Más padding */
+    color: var(--secondary-color);
+    font-size: 1.1em;
+}
+.no-models-message a {
+    font-weight: bold;
+    text-decoration: underline;
+}

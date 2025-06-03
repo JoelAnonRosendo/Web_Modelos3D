@@ -1,0 +1,720 @@
+/* Reseteo básico y fuentes */
+:root {
+    --primary-color: #007bff; /* Azul vibrante */
+    --secondary-color: #6c757d; /* Gris secundario */
+    --accent-color: #ffc107; /* Amarillo para acentos */
+    --bg-color: #f8f9fa; /* Fondo claro */
+    --card-bg-color: #ffffff; /* Fondo de tarjetas */
+    --text-color: #333;
+    --header-bg: #212529; /* Cabecera oscura */
+    --header-text: #f8f9fa;
+    --footer-bg: #343a40; /* Pie de página oscuro */
+    --footer-text: #f8f9fa;
+    --error-bg: #f8d7da;
+    --error-text: #721c24;
+    --error-border: #f5c6cb;
+    --success-bg: #d4edda;
+    --success-text: #155724;
+    --success-border: #c3e6cb;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+h1, h2, h3 {
+    font-family: 'Orbitron', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: darken(var(--primary-color), 10%);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.highlight {
+    color: var(--accent-color);
+}
+
+/* Header Principal (Sitio Público) */
+header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 1em 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+header .logo h1 a {
+    text-decoration:none;
+    color: var(--header-text);
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+header nav ul li {
+    margin-left: 15px;
+}
+header nav ul li:first-child {
+    margin-left: 0;
+}
+
+header nav ul li a {
+    color: var(--header-text);
+    font-weight: bold;
+    transition: color 0.3s ease;
+    padding: 6px 0;
+    display: inline-block;
+}
+
+header nav ul li a:hover,
+header nav ul li a.nav-active { /* Para resaltar link activo en header publico */
+    color: var(--accent-color);
+}
+
+
+/* Botones en el Nav Principal */
+.header-nav-btn {
+    padding: 6px 10px;
+    font-size: 0.85em;
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: normal;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+
+.header-nav-btn.header-nav-btn-accent { /* Como el .btn-primary de antes */
+    background-color: var(--accent-color);
+    color: var(--header-bg);
+}
+.header-nav-btn.header-nav-btn-accent:hover {
+    background-color: darken(var(--accent-color), 10%);
+    color: var(--header-bg);
+}
+
+.header-nav-btn.btn-login { /* Estilo específico si es necesario, o usa el general */
+    background-color: var(--primary-color);
+    color: white;
+    margin-right:5px;
+    padding: 8px 12px;
+    font-size:0.9em;
+}
+.header-nav-btn.btn-login:hover {
+    background-color: darken(var(--primary-color), 10%);
+}
+.header-nav-btn.btn-register {
+    background-color: var(--accent-color);
+    color: var(--header-bg);
+    padding: 8px 12px;
+    font-size:0.9em;
+}
+.header-nav-btn.btn-register:hover {
+    background-color: darken(var(--accent-color),10%);
+}
+
+
+/* Saludo del usuario en el nav principal y admin */
+.user-greeting {
+    margin-right: 15px;
+    color: var(--header-text);
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.9em;
+}
+.user-greeting a {
+    color: var(--accent-color);
+}
+.admin-header .user-greeting { /* En admin puede ser más pequeño */
+    margin-left:15px;
+    font-size: 0.9em;
+}
+.admin-header .user-greeting a { /* color del link de salir en admin */
+     color: var(--accent-color);
+}
+
+
+/* Hero Section (index.php) */
+.hero {
+    background: url('../img/hero_background_placeholder.jpg') no-repeat center center/cover; /* Ajusta ruta si 'img' no está en raíz */
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero .container {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    border-radius: 10px;
+}
+.hero h2 {
+    font-size: 2.8em;
+    margin-bottom: 0.5em;
+}
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+}
+
+/* Buttons (Generales) */
+.btn {
+    display: inline-block;
+    padding: 12px 20px; /* Aumentado un poco para mejor clic general */
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #212529; /* Cambiado para mejor contraste que darken */
+    /* transform: translateY(-2px);  GSAP lo maneja */
+    color: white;
+}
+
+.btn-primary { /* Usado para botones de acción más destacados, amarillo en este caso */
+    background-color: var(--accent-color);
+    color: var(--header-bg);
+}
+.btn-primary:hover {
+    background-color: darken(var(--accent-color), 10%);
+    color: var(--header-bg);
+}
+
+/* Product Grid & Cards (Común para index.php, all_models.php, favorites.php) */
+.product-grid, .categories-section, .about-us,
+.my-favorites-section { /* Añadido para favorites.php */
+    padding: 60px 0;
+}
+.product-grid h2, .categories-section h2, .about-us h2,
+.my-favorites-section h2 { /* Añadido para favorites.php */
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.2em;
+    color: var(--text-color);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Mantenido por si GSAP no carga */
+    display: flex;
+    flex-direction: column;
+    will-change: transform;
+}
+.product-card a.product-image-link { /* Enlace de la imagen */
+    text-decoration:none;
+    display:block;
+    overflow:hidden;
+}
+.product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+.product-card .product-info {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.product-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+}
+.product-card h3 a {
+    color: var(--text-color);
+    text-decoration:none;
+}
+.product-card h3 a:hover {
+    color: var(--primary-color);
+}
+.product-card .price {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    margin-top: auto;
+}
+.product-card .card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 10px;
+}
+.product-card .card-actions > * { /* form y <a> */
+    flex-basis: 48%;
+}
+.product-card .card-actions form button,
+.product-card .card-actions a.btn {
+    width: 100%;
+    margin: 0;
+    font-size: 0.9em;
+    padding: 8px 10px;
+    text-transform: none; /* Para que no todo sea uppercase */
+    letter-spacing: normal;
+}
+.product-card .card-actions a.btn { /* Específico para "Ver Detalles" si es un <a> */
+    vertical-align: middle; /* Alineación con el botón de fav si es necesario */
+}
+
+/* Botón de Favoritos (Común) */
+.favorite-btn {
+    background-color: var(--secondary-color, #6c757d);
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+    display: inline-block;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+.favorite-btn.is-favorite {
+    background-color: var(--accent-color, #ffc107);
+    color: var(--header-bg, #212529); /* Texto oscuro para contraste con fondo amarillo */
+}
+/* En modelo_detalle.php, el botón de favorito es más grande */
+.favorite-btn-detail {
+    padding: 12px 20px; font-size: 1em; text-transform: uppercase; letter-spacing: 1px;
+    border: none; border-radius: 5px; cursor: pointer; text-decoration: none; color: white;
+    text-align:center; flex-grow: 1; min-width: 180px; max-width: 300px;
+    background-color: var(--secondary-color);
+}
+.favorite-btn-detail.is-favorite {
+    background-color: var(--accent-color);
+    color: var(--header-bg);
+}
+
+/* Categories Section (index.php) */
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+.category-item {
+    background-color: var(--card-bg-color);
+    padding: 15px 25px;
+    border-radius: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Mantenido */
+    font-weight: 500;
+    color: var(--text-color);
+    will-change: transform;
+}
+.category-item:hover { /* Mantenemos este hover porque es simple */
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* About Us (index.php) */
+.about-us {
+    background-color: #e9ecef;
+}
+.about-us p {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+/* Footer General (Sitio Público) */
+footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 40px;
+}
+footer .social-links a {
+    color: var(--accent-color);
+    margin: 0 10px;
+    font-weight: bold;
+}
+footer .social-links a:hover {
+    text-decoration: underline;
+}
+
+/* --- ESTILOS DE AUTENTICACIÓN (login.php, register.php) --- */
+.auth-form-container { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px); /* Ajusta 100px si tu header/footer tiene otra altura */
+    padding: 20px 0;
+}
+.auth-form {
+    max-width: 400px;
+    width: 90%; /* Para móviles */
+    margin: 20px auto; /* Margen vertical si no hay min-height */
+    padding: 25px 30px; /* Más padding */
+    background: var(--card-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+.auth-form .form-group { 
+    margin-bottom: 18px; /* Más espacio */
+}
+.auth-form .form-group label { 
+    display: block;
+    margin-bottom: 6px; /* Más espacio */
+    font-weight: bold;
+    font-size: 0.9em;
+}
+.auth-form .form-group input[type="text"],
+.auth-form .form-group input[type="email"],
+.auth-form .form-group input[type="password"] { 
+    width: 100%;
+    padding: 12px; /* Más padding */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+.auth-form .form-group .btn { 
+    width: 100%;
+    padding: 12px; /* Más padding */
+    font-size: 1em;
+}
+.auth-form p { 
+    text-align:center;
+    font-size: 0.9em;
+    margin-top: 15px;
+}
+.auth-form p a {
+    font-weight: bold;
+}
+
+
+/* --- ESTILOS DE ADMINISTRACIÓN (Comunes a add_model, edit_model, manage_models, etc.) --- */
+.admin-header, .admin-footer {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 15px 0;
+    text-align: center;
+}
+.admin-header .container, .admin-footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px; /* Mayor ancho para admin */
+    margin: 0 auto;
+    padding: 0 15px;
+}
+.admin-header .logo h1 {
+    margin: 0; 
+    font-size: 1.5em; 
+}
+.admin-header .logo h1 a {
+    text-decoration:none;
+    color:var(--header-text);
+}
+.admin-header nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+.admin-header nav a {
+    color: var(--accent-color);
+    text-decoration: none;
+    margin: 0 6px;
+    font-size: 0.9em; /* Ajustado para mejor cabida */
+    white-space: nowrap;
+}
+.admin-header nav a.admin-nav-active { 
+    font-weight: bold;
+    color: #fff; /* Un poco más brillante para el activo */
+}
+.admin-header h1 { /* empuja nav a la derecha */
+    margin-right: auto;
+}
+
+.admin-panel-container {
+    max-width: 700px; /* Default para formularios */
+    margin: 30px auto;
+    padding: 20px 15px; /* Padding vertical también */
+}
+/* Título principal dentro del panel de admin (e.g. "Añadir Nuevo Modelo") */
+.admin-panel-container > h2 { /* Este es para el H2 que está fuera del form, ej manage_models.php */
+    text-align: center;
+    margin-bottom: 25px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2em;
+}
+
+
+/* Estilos comunes para formularios de admin (add, edit, manage_featured) */
+.admin-form-common { 
+    padding: 25px;
+    background: var(--card-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    color: var(--text-color);
+}
+.admin-form-common h2 { /* Título DENTRO del form (ej. add_model.php h2) */
+    text-align: center;
+    margin-bottom: 25px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8em; /* Más pequeño que el H2 del panel */
+}
+.admin-form-common .form-group {
+    margin-bottom: 20px;
+}
+.admin-form-common .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 0.95em;
+}
+.admin-form-common .form-group input[type="text"],
+.admin-form-common .form-group input[type="number"],
+.admin-form-common .form-group input[type="file"],
+.admin-form-common .form-group textarea,
+.admin-form-common .form-group input[type="url"],
+.admin-form-common .form-group select { 
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+.admin-form-common .form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+.admin-form-common .form-group .btn-submit {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.admin-form-common .form-group .btn-submit:hover {
+    background-color: darken(var(--primary-color), 10%);
+}
+.admin-form-common .form-group small { 
+    font-size: 0.85em;
+    color: #555;
+    display: block;
+    margin-top: 5px;
+}
+
+
+/* Mensajes de Error y Éxito (Comunes para todo el sitio) */
+.message {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.95em;
+}
+.message.error {
+    background-color: var(--error-bg);
+    color: var(--error-text);
+    border: 1px solid var(--error-border);
+}
+.message.success {
+    background-color: var(--success-bg);
+    color: var(--success-text);
+    border: 1px solid var(--success-border);
+}
+/* Para mensajes dentro de .auth-form (más pequeños) */
+.auth-form .message {
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+/* --- ESTILOS DE RESPONSIVE (General) --- */
+/* Lenis / Scroll Suave - CSS relacionado */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+
+/* Responsive */
+@media (max-width: 992px) {
+    header nav ul li {
+        margin-left: 10px;
+    }
+    .header-nav-btn {
+        padding: 5px 8px;
+        font-size: 0.8em;
+    }
+     .admin-header nav a {
+        font-size: 0.85em; /* Ajuste fino */
+        margin: 0 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    header nav {
+        margin-top: 15px;
+        width: 100%;
+    }
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    header nav ul li {
+        margin: 8px 0;
+        margin-left: 0;
+        width: 80%;
+        text-align: center;
+    }
+    header nav ul li a,
+    header nav ul li span,
+    .user-greeting { 
+        display: block;
+        width: 100%;
+    }
+
+    .header-nav-btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+    .user-greeting {
+        padding: 8px 0;
+        margin-right: 0;
+        text-align: center; /* Mejor centrado en móvil */
+    }
+    /* Ajustes específicos para admin header en móvil */
+    .admin-header .container { flex-direction: column; align-items: center; /* Centrar logo y nav en admin móvil */ }
+    .admin-header .logo h1 { margin-bottom: 10px; text-align: center; }
+    .admin-header nav { width: 100%; justify-content: center; flex-direction: column; }
+    .admin-header nav a { margin: 5px 0; }
+    .admin-header .user-greeting { margin-top: 10px; margin-left:0; width: 100%; text-align: center; }
+
+
+    .hero h2 { font-size: 2em; }
+    .hero p { font-size: 1em; }
+
+    .grid-container { grid-template-columns: 1fr; }
+    .product-card img { height: 250px; }
+
+    /* Botones en detalle de modelo, uno por línea en móvil */
+    .model-actions .btn-download, .model-actions .btn-buy, .model-actions .favorite-btn-detail,
+    .model-actions form {
+        max-width: 100%;
+        flex-basis: 100%;
+    }
+    .admin-panel-container { max-width: 95%; } /* Más ancho en móvil */
+}
+
+@media (max-width: 600px) {
+    /* Para tablas de admin en manage_models.php */
+    .admin-table th:nth-child(1), /* Ocultar ID */
+    .admin-table td:nth-child(1) { display: none; }
+    .admin-table th:nth-child(4), /* Ocultar Categoría */
+    .admin-table td:nth-child(4) { display: none; }
+    .admin-table th:nth-child(5), /* Ocultar Destacado Index */
+    .admin-table td:nth-child(5) { display: none; }
+
+
+    .admin-table .actions a { /* Botones de acción en tabla admin */
+        display: block;
+        margin-right: 0;
+        margin-bottom: 5px;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .hero h2 { font-size: 1.8em; }
+    header .logo h1 { font-size: 1.5em; }
+    .product-card h3 { font-size: 1.2em; }
+    .product-card .price { font-size: 1.1em; }
+    .btn, .header-nav-btn { 
+        padding: 10px 15px; 
+        font-size: 0.9em;
+    }
+    .auth-form { padding: 20px 15px; }
+    .admin-form-common { padding: 20px 15px; }
+}

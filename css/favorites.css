@@ -1,0 +1,35 @@
+/* favorites.css */
+
+/* .favorite-btn, header, footer, .product-grid, .product-card están en style.css */
+
+.my-favorites-section {
+    padding-top: 40px; /* padding top específico para la sección de favoritos */
+}
+
+.my-favorites-section .product-card .card-actions {
+    /* Los estilos generales de .card-actions ya aplican bien. */
+    /* Puedes añadir o sobreescribir aquí si es necesario. */
+    /* margin-top: 15px; Si necesitas un margen diferente al general de .card-actions */
+}
+
+.my-favorites-section .product-card .card-actions form { 
+    /* flex-basis: 48%; Ya está en el general */
+}
+.my-favorites-section .product-card .card-actions .favorite-btn { /* Botón "Quitar Fav" */
+    width: 100%; 
+}
+
+/* Mensaje si no hay favoritos */
+.no-favorites-message {
+    text-align: center;
+    padding: 30px 0; /* Más padding */
+    color: var(--secondary-color);
+    font-size: 1.1em; /* Un poco más grande */
+}
+.no-favorites-message a {
+    font-weight: bold;
+    text-decoration: underline; /* Para que sea más obvio el enlace */
+}
+.no-favorites-message a:hover {
+    color: darken(var(--primary-color), 10%);
+}

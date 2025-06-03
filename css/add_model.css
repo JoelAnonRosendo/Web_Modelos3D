@@ -1,0 +1,65 @@
+/* add_model.css, edit_model.css, manage_featured_index.css */
+
+/* El .admin-form-common de style.css ya cubre la mayoría de estilos. */
+
+/* Para edit_model.php: previsualización de imagen/archivo actual */
+.current-file {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 10px; /* Más espacio */
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+.current-file img {
+    max-width: 150px;
+    max-height: 100px;
+    border: 1px solid #eee;
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 8px; /* Espacio bajo la imagen */
+}
+.current-file a { /* Enlace al archivo actual */
+    font-weight: bold;
+    word-break: break-all; /* Para nombres de archivo largos */
+}
+.current-file label { /* Para el checkbox de eliminar imagen */
+    font-weight:normal;
+    margin-top:8px; /* Espacio sobre el checkbox */
+    font-size: 0.95em; 
+    display: flex; /* Para alinear checkbox y texto */
+    align-items: center;
+}
+.current-file label input[type="checkbox"]{
+    margin-right: 5px;
+}
+.current-file p { /* Texto "Si no seleccionas..." */
+    font-size:0.8em;
+    color:#777;
+    margin: 5px 0 0 0;
+}
+/* Para advertencias sobre archivos no existentes */
+.missing-file-warning {
+    color:orange;
+    font-weight:bold;
+    font-size: 0.9em;
+    margin-top: 8px;
+    padding: 5px;
+    background-color: #fff3e0; /* Fondo amarillo claro */
+    border-left: 3px solid orange;
+}
+.admin-form-common p.form-cancel-link { /* Para el enlace "Cancelar y volver a la lista" */
+    text-align:center;
+    margin-top: 20px; /* Más espacio */
+    font-size: 0.9em;
+}
+
+/* Párrafo introductorio en manage_featured_index.php */
+.admin-form-common .form-intro-text {
+    text-align:left; /* Mejor alineado a la izquierda para párrafos */
+    font-size:0.95em; /* Un poco más grande */
+    margin-bottom:20px;
+    color: #444;
+    line-height: 1.5;
+}
