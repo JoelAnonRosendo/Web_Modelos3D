@@ -416,7 +416,7 @@ html.lenis { height: auto; }
         padding: 8px 12px;
         font-size: 0.9em;
     }
-     header nav ul li.nav-user-greeting span {
+    header nav ul li.nav-user-greeting span {
         padding: 8px 0; 
         margin-right: 0;
     }

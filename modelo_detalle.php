@@ -32,7 +32,7 @@ if (isset($_SESSION['user_id']) && $modelo_id) {
             $es_favorito_actual = true;
         }
     } catch (PDOException $e) {
-         error_log("Error al verificar favorito en modelo_detalle.php: " . $e->getMessage());
+        error_log("Error al verificar favorito en modelo_detalle.php: " . $e->getMessage());
     }
 }
 
@@ -72,7 +72,7 @@ $page_title = $modelo ? htmlspecialchars($modelo['nombre_modelo']) . " - PrintVe
 <body>
     <header> <!-- Header Principal -->
         <div class="container">
-            <div class="logo"><h1><a href="index.php" style="text-decoration:none; color:var(--header-text);">Print<span class="highlight">Verse</span></a></h1></div>
+            <div class="logo"><h1><a href="index.php" style="text-decoration:none; color:var(--header-text);">Arnerazo<span class="highlight">3D</span></a></h1></div>
             <nav>
                 <ul>
                     <li><a href="index.php#home">Inicio</a></li>
@@ -81,7 +81,7 @@ $page_title = $modelo ? htmlspecialchars($modelo['nombre_modelo']) . " - PrintVe
                     <li><a href="<?php echo (basename($_SERVER['PHP_SELF']) == 'index.php' ? '' : 'index.php'); ?>#about">Sobre Nosotros</a></li>
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li><a href="favorites.php">Favoritos</a></li>
-                         <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
+                        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
                             <li><a href="add_model.php" class="btn header-nav-btn">Añadir Modelo</a></li>
                             <li><a href="manage_models.php" class="btn header-nav-btn">Gestionar</a></li>
                         <?php endif; ?>
@@ -152,11 +152,11 @@ $page_title = $modelo ? htmlspecialchars($modelo['nombre_modelo']) . " - PrintVe
                         } elseif ($es_gratuito && $tiene_archivo_local) {
                             echo '<a href="download_handler.php?id=' . $modelo['id'] . '" class="btn-download">Descargar Modelo (.'. pathinfo($modelo['archivo_stl'], PATHINFO_EXTENSION) .')</a>';
                         } elseif (!$es_gratuito && !$tiene_url_compra && $tiene_archivo_local) {
-                             echo '<p style="text-align:center; width:100%; color: var(--secondary-color); flex-basis:100%;">Para adquirir este modelo, por favor, contacta con nosotros.</p>';
+                            echo '<p style="text-align:center; width:100%; color: var(--secondary-color); flex-basis:100%;">Para adquirir este modelo, por favor, contacta con nosotros.</p>';
                         } elseif (!$tiene_archivo_local && !$tiene_url_compra && !$es_gratuito) {
-                             echo '<p style="text-align:center; width:100%; color: var(--secondary-color); flex-basis:100%;">Modelo no disponible para compra o descarga directa actualmente.</p>';
+                            echo '<p style="text-align:center; width:100%; color: var(--secondary-color); flex-basis:100%;">Modelo no disponible para compra o descarga directa actualmente.</p>';
                         } elseif ($es_gratuito && !$tiene_archivo_local){
-                             echo '<p style="text-align:center; width:100%; color: var(--secondary-color); flex-basis:100%;">Este modelo está marcado como gratuito, pero el archivo no está disponible.</p>';
+                            echo '<p style="text-align:center; width:100%; color: var(--secondary-color); flex-basis:100%;">Este modelo está marcado como gratuito, pero el archivo no está disponible.</p>';
                         }
 
                         // Mensajes de estado de otros procesos (menos relevantes ahora, pero pueden ser útiles)
@@ -182,7 +182,7 @@ $page_title = $modelo ? htmlspecialchars($modelo['nombre_modelo']) . " - PrintVe
     </main>
 
     <footer>
-         <div class="container"><p>© <?php echo date("Y"); ?> PrintVerse - Tienda de Modelos 3D.</p></div>
+        <div class="container"><p>© <?php echo date("Y"); ?> PrintVerse - Tienda de Modelos 3D.</p></div>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>

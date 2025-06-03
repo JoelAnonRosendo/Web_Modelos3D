@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $imagen_actual_url_db = $archivos_db['imagen_url'];
             $archivo_actual_url_db = $archivos_db['archivo_stl'];
             // La URL externa actual para repoblar el campo si no se envía una nueva en POST
-             $url_compra_externa_val = $_POST['url_compra_externa'] ?? $archivos_db['url_compra_externa'] ?? '';
+            $url_compra_externa_val = $_POST['url_compra_externa'] ?? $archivos_db['url_compra_externa'] ?? '';
         }
 
     } else {
@@ -151,12 +151,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $allowed_stl_types = ['stl', 'obj', '3mf'];
             if (in_array($stl_extension, $allowed_stl_types) && $_FILES["nuevo_archivo_modelo_3d"]["size"] < 50 * 1024 * 1024) {
                 if (move_uploaded_file($_FILES["nuevo_archivo_modelo_3d"]["tmp_name"], $target_file_stl)) {
-                     if (!empty($archivo_actual_url_db) && file_exists($archivo_actual_url_db)) { unlink($archivo_actual_url_db); }
+                    if (!empty($archivo_actual_url_db) && file_exists($archivo_actual_url_db)) { unlink($archivo_actual_url_db); }
                     $archivo_stl_para_db = $target_file_stl;
                 } else { $error_message .= " Error al mover el nuevo archivo 3D."; }
             } else { $error_message .= " Tipo de nuevo archivo 3D no permitido o muy grande."; }
         } elseif (isset($_FILES['nuevo_archivo_modelo_3d']) && $_FILES['nuevo_archivo_modelo_3d']['error'] != UPLOAD_ERR_NO_FILE) {
-             $error_message .= " Error al subir el nuevo archivo 3D: Código " . $_FILES['nuevo_archivo_modelo_3d']['error'];
+            $error_message .= " Error al subir el nuevo archivo 3D: Código " . $_FILES['nuevo_archivo_modelo_3d']['error'];
         }
 
         // Validar si el archivo STL sigue siendo necesario después de la edición
@@ -241,12 +241,12 @@ if ($modelo_id && !$_POST && !$modelo_actual_data && !$error_message) { // Si hu
 <body>
     <header class="admin-header">
         <div class="container">
-             <h1><a href="index.php">PrintVerse</a><span style="font-size:0.7em; color:var(--accent-color, #ffc107);"> - Panel Admin</span></h1>
+            <div class="logo"><h1><a href="index.php" style="text-decoration:none; color:var(--header-text);">Arnerazo<span class="highlight">3D</span></a></h1></div>
             <nav>
                 <a href="index.php">Ver Sitio</a>
                 <a href="add_model.php">Añadir Modelo</a>
                 <a href="manage_models.php">Gestionar Modelos</a>
-                 <?php if (isset($_SESSION['user_alias'])): ?>
+                <?php if (isset($_SESSION['user_alias'])): ?>
                     <span style="margin-left:15px;">Hola, <?php echo htmlspecialchars($_SESSION['user_alias']); ?> (<a href="logout.php">Salir</a>)</span>
                 <?php endif; ?>
             </nav>
@@ -294,10 +294,10 @@ if ($modelo_id && !$_POST && !$modelo_actual_data && !$error_message) { // Si hu
                     <?php endif; ?>
                 </div>
 
-                 <div class="form-group">
+                <div class="form-group">
                     <label for="nuevo_archivo_modelo_3d">Cambiar Archivo 3D (STL, OBJ, 3MF - max 50MB):</label>
                     <input type="file" id="nuevo_archivo_modelo_3d" name="nuevo_archivo_modelo_3d" accept=".stl,.obj,.3mf">
-                     <?php if ($archivo_actual_url): ?>
+                    <?php if ($archivo_actual_url): ?>
                         <div class="current-file">
                             Archivo 3D actual: <a href="<?php echo htmlspecialchars($archivo_actual_url); ?>" target="_blank" download><?php echo basename($archivo_actual_url); ?></a>
                             <p style="font-size:0.8em; color:#777;">(Si no seleccionas uno nuevo, se mantendrá el actual).</p>
@@ -305,7 +305,7 @@ if ($modelo_id && !$_POST && !$modelo_actual_data && !$error_message) { // Si hu
                     <?php else: ?>
                         <p style="color:orange; font-weight:bold;">Este modelo no tiene un archivo 3D asociado. Es recomendable subir uno si es para descarga local/gratuita.</p>
                     <?php endif; ?>
-                     <small>El archivo 3D es obligatorio si el modelo es gratuito en este sitio o no tiene URL de compra externa.</small>
+                    <small>El archivo 3D es obligatorio si el modelo es gratuito en este sitio o no tiene URL de compra externa.</small>
                 </div>
 
                 <div class="form-group">

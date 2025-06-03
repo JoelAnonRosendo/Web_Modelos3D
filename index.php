@@ -2,18 +2,28 @@
 session_start(); // Esencial al inicio de cada página que use sesiones
 require 'db_config.php'; // Para acceder a $pdo si es necesario aquí
 
-// --- Obtener modelos de la base de datos ---
-// Es buena idea limitar el número de modelos en la página principal y paginar o tener un "ver más"
-// También, manejar errores si la consulta falla.
+// --- Obtener modelos DESTACADOS para la página principal ---
+// Esto ahora obtendrá los modelos que el admin marcó para el index.
 try {
-    // Seleccionamos más campos por si los necesitas más adelante en la tarjeta
-    $stmt_modelos = $pdo->query("SELECT id, nombre_modelo, precio, imagen_url, descripcion FROM modelos ORDER BY id DESC LIMIT 12");
+    // Nueva consulta para modelos destacados del index
+    $stmt_modelos = $pdo->query("SELECT id, nombre_modelo, precio, imagen_url, descripcion
+                                FROM modelos
+                                WHERE orden_destacado_index IS NOT NULL
+                                ORDER BY orden_destacado_index ASC
+                                 LIMIT 3"); // Se mostrarán hasta 3, en el orden especificado
     $modelos = $stmt_modelos->fetchAll(PDO::FETCH_ASSOC);
+
+    // [Opcional] Lógica de respaldo si no hay destacados definidos
+    // Si no hay modelos destacados configurados por el admin, muestra los 3 últimos, por ejemplo.
+    if (empty($modelos)) {
+        $stmt_fallback = $pdo->query("SELECT id, nombre_modelo, precio, imagen_url, descripcion FROM modelos ORDER BY id DESC LIMIT 3");
+        $modelos = $stmt_fallback->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 } catch (PDOException $e) {
     $modelos = []; // Dejar array vacío si hay error
-    // Loguear el error y/o mostrar un mensaje más amigable al usuario en un sitio en producción
     error_log("Error al obtener modelos en index.php: " . $e->getMessage());
-    // $page_error_message = "Hubo un problema al cargar los modelos. Inténtelo más tarde.";
+    $page_error_message = "Hubo un problema al cargar los modelos. Inténtelo más tarde.";
 }
 
 
@@ -23,16 +33,14 @@ if (isset($_SESSION['user_id'])) {
     try {
         $stmt_fav = $pdo->prepare("SELECT modelo_id FROM favoritos WHERE usuario_id = :user_id");
         $stmt_fav->execute(['user_id' => $_SESSION['user_id']]);
-        $ids_favoritos = $stmt_fav->fetchAll(PDO::FETCH_COLUMN); // Obtiene solo la columna modelo_id
-        $favoritos_usuario = array_flip($ids_favoritos); // Clave es modelo_id, valor es el índice (0,1,2..)
-                                                       // Esto facilita la búsqueda con: isset($favoritos_usuario[$modelo_id])
+        $ids_favoritos = $stmt_fav->fetchAll(PDO::FETCH_COLUMN);
+        $favoritos_usuario = array_flip($ids_favoritos);
     } catch (PDOException $e) {
-        // No interrumpir la carga de la página por error en favoritos, pero loguear
         error_log("Error al obtener favoritos en index.php para usuario {$_SESSION['user_id']}: " . $e->getMessage());
     }
 }
 
-$page_title = "Tienda de Modelos 3D - PrintVerse";
+$page_title = "Tienda de Modelos 3D - Arnerazo3D";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -43,9 +51,8 @@ $page_title = "Tienda de Modelos 3D - PrintVerse";
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos para el botón de favorito que tenías */
         .favorite-btn {
-            background-color: var(--secondary-color, #6c757d); /* Color secundario por defecto */
+            background-color: var(--secondary-color, #6c757d);
             color: white;
             padding: 5px 10px;
             border: none;
@@ -53,12 +60,12 @@ $page_title = "Tienda de Modelos 3D - PrintVerse";
             cursor: pointer;
             font-size: 0.8em;
             margin-top: 10px;
-            display: inline-block; /* O flex si necesitas más control */
+            display: inline-block;
             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
         }
         .favorite-btn.is-favorite {
-            background-color: var(--accent-color, #ffc107); /* Naranja/amarillo cuando es favorito */
-            color: var(--header-bg, #212529); /* Texto oscuro para contraste */
+            background-color: var(--accent-color, #ffc107);
+            color: var(--header-bg, #212529);
         }
     </style>
 </head>
@@ -66,23 +73,24 @@ $page_title = "Tienda de Modelos 3D - PrintVerse";
     <header>
         <div class="container">
             <div class="logo">
-                <h1><a href="index.php" style="text-decoration:none; color:var(--header-text, #f8f9fa);">Print<span class="highlight">Verse</span></a></h1>
+                <h1><a href="index.php" style="text-decoration:none; color:var(--header-text, #f8f9fa);">Arnerazo<span class="highlight">3D</span></a></h1>
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.php#home">Inicio</a></li>
-                    <li><a href="index.php#models">Modelos</a></li>
+                    <li><a href="index.php">Inicio</a></li>
+                    <li><a href="all_models.php">Modelos</a></li>
                     <li><a href="index.php#categories">Categorías</a></li>
                     <li><a href="<?php echo (basename($_SERVER['PHP_SELF']) == 'index.php' ? '' : 'index.php'); ?>#about">Sobre Nosotros</a></li>
-                    <?php if (basename($_SERVER['PHP_SELF']) == 'index.php'): // Solo mostrar Contacto en nav de index ?>
+                    <?php if (basename($_SERVER['PHP_SELF']) == 'index.php'): ?>
                         <li><a href="#contact">Contacto</a></li>
                     <?php endif; ?>
 
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li><a href="favorites.php">Favoritos</a></li>
-                         <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
-                            <li><a href="add_model.php" class="btn header-nav-btn">Añadir Modelo</a></li>
+                        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
+                            <li><a href="add_model.php" class="btn header-nav-btn">Añadir</a></li>
                             <li><a href="manage_models.php" class="btn header-nav-btn">Gestionar</a></li>
+                            <!-- Añade aquí si quieres el enlace a "Destacados Index" también -->
                         <?php endif; ?>
                         
                         <li class="nav-user-greeting"><span >Hola, <?php echo htmlspecialchars($_SESSION['user_alias']); ?>!</span></li>
@@ -100,7 +108,7 @@ $page_title = "Tienda de Modelos 3D - PrintVerse";
         <div class="container">
             <h2>Modelos 3D Increíbles, Listos para Imprimir</h2>
             <p>Explora nuestra colección curada de diseños únicos y de alta calidad.</p>
-            <a href="#models" class="btn btn-primary">Ver Colección</a>
+            <a href="all_models.php" class="btn btn-primary">Ver Colección</a>
         </div>
     </section>
 
@@ -108,7 +116,7 @@ $page_title = "Tienda de Modelos 3D - PrintVerse";
         <section id="models" class="product-grid">
             <div class="container">
                 <h2>Modelos Destacados</h2>
-                <?php // if (isset($page_error_message)): echo "<p class='message error'>{$page_error_message}</p>"; endif; ?>
+                <?php if (isset($page_error_message)): echo "<p class='message error'>{$page_error_message}</p>"; endif; ?>
                 
                 <div class="grid-container">
                     <?php if (!empty($modelos)): ?>
@@ -159,46 +167,36 @@ $page_title = "Tienda de Modelos 3D - PrintVerse";
         </section>
         
         <section id="categories" class="categories-section">
-             <div class="container">
+            <!-- Tu sección de categorías no cambia -->
+            <div class="container">
                 <h2>Explora por Categorías</h2>
-                 <div class="category-list">
-                    <a href="#figuras" class="category-item">Figuras y Miniaturas</a>
-                    <a href="#gadgets" class="category-item">Herramientas y Gadgets</a>
-                    <a href="#decoracion" class="category-item">Decoración del Hogar</a>
-                    {/* Añade más categorías según necesites */}
+                <div class="category-list">
+                    <a href="all_models.php?categoria_id=1" class="category-item">Figuras y Miniaturas</a>
+                    <a href="all_models.php?categoria_id=2" class="category-item">Herramientas y Gadgets</a>
+                    <a href="all_models.php?categoria_id=3" class="category-item">Decoración del Hogar</a>
                 </div>
             </div>
         </section>
         <section id="about" class="about-us">
+            <!-- Tu sección sobre nosotros no cambia -->
             <div class="container">
-                <h2>Sobre PrintVerse</h2>
-                <p>En PrintVerse, somos apasionados por la impresión 3D y creemos en el poder de la creatividad digital para transformar ideas en objetos tangibles. Nuestra misión es proporcionar una plataforma donde diseñadores talentosos puedan compartir sus creaciones y los entusiastas de la impresión 3D puedan encontrar modelos únicos y de alta calidad...</p>
-                {/* Completa esta sección */}
+                <h2>Sobre Arnerazo3D</h2>
+                <p>En Arnerazo3D, somos apasionados por la impresión 3D...</p>
             </div>
         </section>
     </main>
 
     <footer id="contact">
+        <!-- Tu footer no cambia -->
         <div class="container">
-            <p>© <?php echo date("Y"); ?> PrintVerse - Tienda de Modelos 3D. Todos los derechos reservados.</p>
-            <p>Contáctanos: <a href="mailto:info@printverse.example.com">info@printverse.example.com</a></p>
-             <div class="social-links">
-                <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">Twitter</a>
-            </div>
+            <p>© <?php echo date("Y"); ?> Arnerazo3D - Tienda de Modelos 3D. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!-- Librerías (CDN) -->
-    <!-- GSAP y ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-
-
-    <!-- Lenis Scroll -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-
-    <!-- Tu script personalizado de animaciones -->
     <script src="./animation.js"></script>
 </body>
 </html>

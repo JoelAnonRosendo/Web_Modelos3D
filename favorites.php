@@ -24,7 +24,7 @@ $modelos_favoritos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Favoritos - PrintVerse</title>
+    <title>Mis Favoritos - Arnerazo3D</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -44,22 +44,22 @@ $modelos_favoritos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             justify-content: space-between;
             align-items: center;
         }
-         .product-card .card-actions .btn {
+        .product-card .card-actions .btn {
              flex-basis: 48%; /* Para que los botones compartan espacio */
-         }
-         .product-card .card-actions form {
+        }
+        .product-card .card-actions form {
             flex-basis: 48%;
-         }
-         .product-card .card-actions .favorite-btn {
+        }
+        .product-card .card-actions .favorite-btn {
             width: 100%; /* Para que el botón fav ocupe el espacio del form */
-         }
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <div class="logo">
-                <h1><a href="index.php" style="text-decoration:none; color:var(--header-text, #f8f9fa);">Print<span class="highlight">Verse</span></a></h1>
+                <h1><a href="index.php" style="text-decoration:none; color:var(--header-text, #f8f9fa);">Arnerazo<span class="highlight">3D</span></a></h1>
             </div>
             <nav>
                 <ul>
@@ -70,7 +70,7 @@ $modelos_favoritos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li><a href="favorites.php" style="color: var(--accent-color); font-weight:bold;">Favoritos</a></li>
-                         <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
+                        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
                             <li><a href="add_model.php" class="btn header-nav-btn">Añadir Modelo</a></li>
                             <li><a href="manage_models.php" class="btn header-nav-btn">Gestionar</a></li>
                         <?php endif; ?>
@@ -98,7 +98,7 @@ $modelos_favoritos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div class="product-card">
                                 <a href="modelo_detalle.php?id=<?php echo $modelo['id']; ?>" style="text-decoration:none; display:block; overflow:hidden;">
                                     <img src="<?php echo htmlspecialchars($modelo['imagen_url'] ?? 'img/placeholder.png'); ?>" alt="<?php echo htmlspecialchars($modelo['nombre_modelo']); ?>">
-                                 </a>
+                                </a>
                                 <div class="product-info">
                                     <h3>
                                         <a href="modelo_detalle.php?id=<?php echo $modelo['id']; ?>" style="text-decoration:none; color:var(--text-color, #333);">
@@ -131,9 +131,9 @@ $modelos_favoritos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </main>
 
     <footer>
-         <div class="container">
+        <div class="container">
             <p>© <?php echo date("Y"); ?> PrintVerse - Tienda de Modelos 3D. Todos los derechos reservados.</p>
-         </div>
+        </div>
     </footer>
 
     <!-- Librerías (CDN) -->

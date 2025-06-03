@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Lógica completa de archivo 3D
     if (isset($_FILES['archivo_modelo_3d']) && $_FILES['archivo_modelo_3d']['error'] == UPLOAD_ERR_OK) {
         $target_dir_stl = "models_files/";
-         if (!is_dir($target_dir_stl)) {
+        if (!is_dir($target_dir_stl)) {
             if (!mkdir($target_dir_stl, 0775, true) && !is_dir($target_dir_stl)) {
                 $error_message .= " Fallo al crear el directorio de archivos 3D.";
             }
@@ -121,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         // Si hay URL externa y precio > 0, el archivo_stl_final puede quedar null.
     } elseif (isset($_FILES['archivo_modelo_3d']) && $_FILES['archivo_modelo_3d']['error'] != UPLOAD_ERR_NO_FILE) {
-         $error_message .= " Error al subir el archivo 3D: Código " . $_FILES['archivo_modelo_3d']['error'];
+        $error_message .= " Error al subir el archivo 3D: Código " . $_FILES['archivo_modelo_3d']['error'];
     }
 
 
@@ -188,7 +188,7 @@ $page_title = "Añadir Nuevo Modelo 3D - Panel de Administración";
 <body>
     <header class="admin-header">
         <div class="container">
-            <h1><a href="index.php">PrintVerse</a><span style="font-size:0.7em; color:var(--accent-color, #ffc107);"> - Panel Admin</span></h1>
+            <div class="logo"><h1><a href="index.php" style="text-decoration:none; color:var(--header-text);">Arnerazo<span class="highlight">3D</span></a></h1></div>
             <nav>
                 <a href="index.php">Ver Sitio</a>
                 <a href="add_model.php" style="font-weight:bold;">Añadir Modelo</a>
